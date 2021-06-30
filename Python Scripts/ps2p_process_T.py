@@ -13,7 +13,7 @@ saveServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tomm
 use_custom_ops = True # Logical for default options
 opsFile = r"C:\Users\Opti9020_5\Documents\Tommy's Stuff\Personal-Processing\Ps2p Ops Files\secondComparisonOps_210630.npy" # Place full path and file name to options file
 save_path = saveServer + '\\' + experimentName + r"_procPS2P"
-data_path = rawDataServer + experimentName
+data_path = rawDataServer + '\\' + experimentName
 
 
 #------------------------------ DO NOT Edit Below this Line ------------------------------#
@@ -29,6 +29,7 @@ if use_custom_ops:
     ops0 = np.load(opsFile , allow_pickle=True)
     ops = ops0.tolist()
     ops["save_folder"] = save_path
+    ops['input_format'] = 'sbx'
 else:
     ops = default_ops()
 
