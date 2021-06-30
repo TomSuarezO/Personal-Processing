@@ -6,9 +6,11 @@ Created on Thu Jun 24 11:46:14 2021
 """
 
 # User-input parameters
-data_path = [r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\DayNightProject\ctetSLC067_1L_210302_processed_suite2p\AlignedTiff"]
+processed_path = "r\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\Brians Test\slc090_1L_210517_vis_processed_suite2p"
+data_path = [processed_path + r"\AlignedTiff"]
 use_custom_ops = True # Logical for default options
 filename = r"C:\Users\Opti9020_5\Documents\Tommy's Stuff\Suite2p Tests\Local Test Run\baseOpsTommy.npy" # Place full path and name to options file
+save_path = processed_path + r"\s2p_PythonOutput"
 
 
 
@@ -23,6 +25,7 @@ from suite2p import run_s2p, default_ops
 if use_custom_ops:
     ops0 = np.load(filename , allow_pickle=True)
     ops = ops0.tolist()
+    ops["save_folder"] = save_path
 else:
     ops = default_ops()
 
@@ -33,4 +36,4 @@ db = {
       #'tiff_list': ['suite2p_1_ctetSLC077_NC_210510_2P_plane1_1.tif']
     }
 
-opsEnd = run_s2p(ops=ops, db=db)
+#opsEnd = run_s2p(ops=ops, db=db)

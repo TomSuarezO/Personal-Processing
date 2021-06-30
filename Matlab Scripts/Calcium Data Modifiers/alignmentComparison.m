@@ -5,7 +5,7 @@
 %% Input Parameters
 % use full path and filenames
 firstTiff = '\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\DayNightProject\ctetSLC067_1L_210302_processed_suite2p\AlignedTiff\suite2p_1_ctetSLC067_1L_210302_2P_plane1_1.tif';
-alignedBin = '\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\DayNightProject\ctetSLC067_1L_210302_processed_suite2p\suite2p\plane0\data.bin';
+alignedBin = '\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\DayNightProject\ctetSLC067_1L_210302_processed_suite2p\s2p_PythonOutput\plane0\data.bin';
 
 %% Read Tiff file
 stackInfo = imfinfo(firstTiff);
