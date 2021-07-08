@@ -6,17 +6,19 @@ Created on Thu Jun 24 11:46:14 2021
 """
 
 # User-input parameters
-experimentName = r"ctetSLC067_1L_210223"
-rawDataServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\RawCaDataArchive\Tommy"
-saveServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\DayNightProject"
+experimentName = r"slc096_1R_210620"
+rawDataServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\RawCaDataArchive\Brian\slc096_1R"
+saveServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Brian\closed_loop_grating_discrimination\python_suite2p_processed"
+print('\nExperiment ID: ' + experimentName + '\n Saved in folder:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default options
-opsFile = r"C:\Users\Opti9020_5\Documents\Tommy's Stuff\Personal-Processing\Ps2p Ops Files\secondComparisonOps_210630.npy" # Place full path and file name to options file
+opsFile = r"C:\Users\kuhlmanlab\Documents\Tommy's Stuff\Personal-Processing\Ps2p Ops Files\secondComparisonOps_210630.npy" # Place full path and file name to options file
 save_path = saveServer + '\\' + experimentName + r"_procPS2P"
 data_path = rawDataServer + '\\' + experimentName
 
 
 #------------------------------ DO NOT Edit Below this Line ------------------------------#
+#---------------------------(unless you know what you are doing)--------------------------#
 
 
 # Import Numpy for reading npy files and more
@@ -30,13 +32,14 @@ if use_custom_ops:
     ops = ops0.tolist()
     ops["save_folder"] = save_path
     ops['input_format'] = 'sbx'
+    ops['delete_bin'] = False
 else:
     ops = default_ops()
 
 # Create Database
 db = {
       'look_one_level_down': False, # whether to look in ALL subfolders when searching for tiffs
-      'data_path': data_path, # a list of folders with tiffs
+      'data_path': [data_path], # a list of folders with tiffs
       #'tiff_list': ['suite2p_1_ctetSLC077_NC_210510_2P_plane1_1.tif']
     }
 
