@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Created on Thu Jun 24 11:46:14 2021
 
@@ -6,20 +5,22 @@ Created on Thu Jun 24 11:46:14 2021
 """
 
 # User-input parameters
-experimentName = r"slc096_NC_210606"
-rawDataServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\RawCaDataArchive\Brian\slc096_NC"
-saveServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Brian\closed_loop_grating_discrimination\python_suite2p_processed"
+experimentName = r"slc096_NC_210901"
+rawDataServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\RawCaDataArchive\Tommy" # server path for raw data - just before session ID folder
+saveServer = r"\\mousehive.ni.cmu.edu\kuhlmanlab\data1\ProcessedDataArchive\Tommy\Bilayer Imaging" # path where new folder will be created
+numberOfplanes = 1
 print('\nExperiment ID: ' + experimentName + '\n Saved in folder:' + saveServer + '\n')
 
-use_custom_ops = True # Logical for default options
-opsFile = r"C:\Users\kuhlmanlab\Documents\Tommy's Stuff\Personal-Processing\Ps2p Ops Files\secondComparisonOps_210630.npy" # Place full path and file name to options file
-save_path = saveServer + '\\' + experimentName + r"_procPS2P"
-data_path = rawDataServer + '\\' + experimentName
+use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
+opsFile = r"C:\Users\kuhlmanlab\Documents\PS2P Files\Ps2p Ops Files\KLabMainOps_211103.npy" # Place full path and file name to options file - has to be in local drive
 
 
 #------------------------------ DO NOT Edit Below this Line ------------------------------#
 #---------------------------(unless you know what you are doing)--------------------------#
 
+
+save_path = saveServer + '\\' + experimentName + r"_procPS2P"
+data_path = rawDataServer + '\\' + experimentName
 
 # Import Numpy for reading npy files and more
 import numpy as np
@@ -31,10 +32,10 @@ if use_custom_ops:
     ops0 = np.load(opsFile , allow_pickle=True)
     ops = ops0.tolist()
     ops["save_folder"] = save_path
+    ops["nplanes"] = numberOfPlanes
     ops['input_format'] = 'sbx'
-    ops['delete_bin'] = False
-    ops['keep_movie_raw'] = True
-    ops['maxregshift'] = 0.1
+    # For future releases, sbx deadcolumns and deadrows might be improved
+    #ops['sbx_list'] = ['slc097_1L_210806_000_004.sbx','slc097_1L_210806_000_005.sbx','slc097_1L_210806_000_006.sbx']
     #ops['sbx_ndeadcols'] = 100
     #ops['sbx_ndeadrows'] = 32
     print('Custom Ops Loaded')
