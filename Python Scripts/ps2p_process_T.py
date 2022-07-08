@@ -7,15 +7,15 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"
-experimentName = r"PV3\070122"
+experimentName = r"Tlx481\070822"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\2P_Testing\Nonspecific\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\2P_Testing\Nonspecific\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\2P_Testing\IT\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\2P_Testing\IT\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
 #opsFile = r"C:\Users\Williamson_Lab\Documents\Tommy\Ps2p Ops Files\WilliamsonLabMainOps_220601.npy" # Place full path and file name to options file - has to be in local drive
-opsFile = r"W:\Data\Arousal_Project\Suite2P_1x_settings.npy" # Place full path and file name to options file - has to be in local drive
+opsFile = r"W:\Data\Arousal_Project\Suite2P_1x_settings.npy" # Keith's parameters for suite2p
 
 #------------------------------ DO NOT Edit Below this Line ------------------------------#
 #---------------------------(unless you know what you are doing)--------------------------#
@@ -75,3 +75,36 @@ maxY = round(a['Ly']*a['maxregshift'])
 titlestr = 'Max Allowed X Shift = '+str(maxX) +'  |  '+'Max Allowed Y Shift = '+str(maxY)
 plt.title(titlestr)
 plt.savefig(save_path + '\\' + 'MotionDiagnosis')
+
+
+# Send Slack message upon completion
+import json
+import sys
+import random
+import requests
+if __name__ == '__main__':
+    url = "https://hooks.slack.com/services/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"
+    message = ("Experiment "' + experimentName + '" ran successfully'")
+    #title = (f"New Incoming Message :zap:")
+    slack_data = {
+        "username": "Suite2p",
+        "icon_emoji": ":1234:",
+        #"channel" : "#somerandomcahnnel",
+        "attachments": [
+            {
+                "color": "#9733EE",
+                "fields": [
+                    {
+                        #"title": title,
+                        "value": message,
+                        "short": "false",
+                    }
+                ]
+            }
+        ]
+    }
+    byte_length = str(sys.getsizeof(slack_data))
+    headers = {'Content-Type': "application/json", 'Content-Length': byte_length}
+    response = requests.post(url, data=json.dumps(slack_data), headers=headers)
+    if response.status_code != 200:
+        raise Exception(response.status_code, response.text)
