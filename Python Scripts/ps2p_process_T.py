@@ -7,14 +7,15 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"
-experimentName = r"PV2\042022"
+experimentName = r"PV3\070122"
 #experimentName = mouseID + "\\" expDate
 rawDataServer = r"W:\Data\2P_Testing\Nonspecific\2P" # server path for raw data - just before session ID folder
 saveServer = r"W:\Data\2P_Testing\Nonspecific\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
-opsFile = r"C:\Users\Williamson_Lab\Documents\Tommy\Ps2p Ops Files\WL_Ops_2Channel_042222.npy" # Place full path and file name to options file - has to be in local drive
+#opsFile = r"C:\Users\Williamson_Lab\Documents\Tommy\Ps2p Ops Files\WilliamsonLabMainOps_220601.npy" # Place full path and file name to options file - has to be in local drive
+opsFile = r"W:\Data\Arousal_Project\Suite2P_1x_settings.npy" # Place full path and file name to options file - has to be in local drive
 
 #------------------------------ DO NOT Edit Below this Line ------------------------------#
 #---------------------------(unless you know what you are doing)--------------------------#
@@ -36,10 +37,11 @@ from suite2p import run_s2p, default_ops
 if use_custom_ops:
     ops0 = np.load(opsFile , allow_pickle=True)
     ops = ops0.tolist()
-    ops["tau"] = 1.25
-    ops["spatial_hp_reg"] = 42
+    ops["tau"] = 1.0
+    #ops["spatial_hp_reg"] = 42
     #ops["nplanes"] = 1
-    #ops["nchannels"] = 2
+    #ops["do_bidphase"] = 1
+    ops["nchannels"] = 1
     ops["save_folder"] = save_path
     ops['input_format'] = 'tif'
     print('Custom Ops Loaded')
@@ -51,6 +53,7 @@ else:
 db = {
       'look_one_level_down': True, # whether to look in ALL subfolders when searching for tiffs
       'data_path': [data_path], # a list of folders with tiffs
+      'fast_disk': r"C:\Users\Williamson_Lab\Documents\Tommy\Ps2p Fast Disk"
       #'tiff_list': ['suite2p_1_ctetSLC077_NC_210510_2P_plane1_1.tif']
     }
 
