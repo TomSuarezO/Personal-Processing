@@ -7,10 +7,10 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"
-experimentName = r"Tlx481\070822"
+experimentName = r"Tlx3_PL56_46\062322"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\2P_Testing\IT\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\2P_Testing\IT\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\Arousal_Project\IT\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\Arousal_Project\IT\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
