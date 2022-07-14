@@ -88,7 +88,8 @@ if __name__ == '__main__':
     #title = (f"New Incoming Message :zap:")
     slack_data = {
         "username": "Suite2p",
-        "icon_emoji": ":1234:",
+        #"icon_emoji": ":1234:",
+        "icon_url": "https://raw.githubusercontent.com/MouseLand/suite2p/main/suite2p/logo/logo_unshaded.png",
         #"channel" : "#somerandomcahnnel",
         "attachments": [
             {
