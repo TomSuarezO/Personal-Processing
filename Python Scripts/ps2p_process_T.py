@@ -7,10 +7,10 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"
-experimentName = r"Tlx3_PL56_46\062322"
+experimentName = r"Tlx480\082922"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\Arousal_Project\IT\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\Arousal_Project\IT\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\2P_Testing\Nonspecific\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\2P_Testing\Nonspecific\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
@@ -37,7 +37,7 @@ from suite2p import run_s2p, default_ops
 if use_custom_ops:
     ops0 = np.load(opsFile , allow_pickle=True)
     ops = ops0.tolist()
-    ops["tau"] = 1.0
+    ops["tau"] = 1.25
     #ops["spatial_hp_reg"] = 42
     #ops["nplanes"] = 1
     #ops["do_bidphase"] = 1
@@ -84,7 +84,7 @@ import random
 import requests
 if __name__ == '__main__':
     url = "https://hooks.slack.com/services/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"
-    message = ("Experiment "' + experimentName + '" ran successfully'")
+    message = ("Experiment " + experimentName + " ran successfully")
     #title = (f"New Incoming Message :zap:")
     slack_data = {
         "username": "Suite2p",
