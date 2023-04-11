@@ -7,17 +7,17 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"
-experimentName = r"WT225\100322"
+experimentName = r"WT319\033023"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\2P_Testing\Nonspecific\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\2P_Testing\Nonspecific\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\Mask_ND\Nonspecific\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\Mask_ND\Nonspecific\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
 #opsFile = r"C:\Users\Williamson_Lab\Documents\Tommy\Ps2p Ops Files\WilliamsonLabMainOps_220601.npy" # Place full path and file name to options file - has to be in local drive
 opsFile = r"W:\Data\Arousal_Project\Suite2P_1x_settings.npy" # Keith's parameters for suite2p
 
-#------------------------------ DO NOT Edit Below this Line ------------------------------#
+#------------------------------ DO NOT edit below this Line ------------------------------#
 #---------------------------(unless you know what you are doing)--------------------------#
 
 
@@ -35,16 +35,19 @@ from suite2p import run_s2p, default_ops
 
 # Choose default or custom ops base on input parameter use_custom_ops
 if use_custom_ops:
-    ops0 = np.load(opsFile , allow_pickle=True)
-    ops = ops0.tolist()
-    ops["tau"] = 1.25
-    #ops["spatial_hp_reg"] = 42
-    #ops["nplanes"] = 1
-    #ops["do_bidphase"] = 1
-    ops["nchannels"] = 1
-    ops["save_folder"] = save_path
-    ops['input_format'] = 'tif'
+    ops0    = np.load(opsFile , allow_pickle=True)
+    ops     = ops0.tolist()
+    ops["tau"]              = 1.00
+    ops["fs"]               = 30
+    ops["nplanes"]          = 1
+    ops["move_bin"]         = 1
+    ops["nchannels"]        = 1
+    ops["do_registration"]  = 1
+    ops["save_folder"]      = save_path
+    ops['input_format']     = 'tif'
     print('Custom Ops Loaded')
+    # ops['ignore_flyback'] = np.arange(4,48234,5 )
+    #ops["do_bidphase"] = 1
 else:
     ops = default_ops()
     print('Default Ops Loaded')
@@ -61,51 +64,27 @@ print('############################## Beginning of Suite2p Processing ##########
 opsEnd = run_s2p(ops=ops, db=db)
 print('############################## End of Suite2p Processing ##############################')
 
-a = opsEnd
+
+# Make diagnostic motion correction figure
+newOps = opsEnd
 import matplotlib.pyplot as plt
-plt.plot(a['xoff'])
-plt.plot(a['yoff'])
+plt.plot(newOps['xoff'])
+plt.plot(newOps['yoff'])
 plt.xlabel('Frames')
 plt.ylabel('Correction (pixels)')
 plt.legend({'X Shift','Y Shift'})
 plt.grid()
 plt.suptitle('Registration Motion')
-maxX = round(a['Lx']*a['maxregshift'])
-maxY = round(a['Ly']*a['maxregshift'])
+maxX = round(newOps['Lx']*newOps['maxregshift'])
+maxY = round(newOps['Ly']*newOps['maxregshift'])
 titlestr = 'Max Allowed X Shift = '+str(maxX) +'  |  '+'Max Allowed Y Shift = '+str(maxY)
 plt.title(titlestr)
 plt.savefig(save_path + '\\' + 'MotionDiagnosis')
 
 
 # Send Slack message upon completion
-import json
-import sys
-import random
-import requests
-if __name__ == '__main__':
-    url = "https://hooks.slack.com/services/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"
-    message = ("Experiment " + experimentName + " ran successfully")
-    #title = (f"New Incoming Message :zap:")
-    slack_data = {
-        "username": "Suite2p",
-        #"icon_emoji": ":1234:",
-        "icon_url": "https://raw.githubusercontent.com/MouseLand/suite2p/main/suite2p/logo/logo_unshaded.png",
-        #"channel" : "#somerandomcahnnel",
-        "attachments": [
-            {
-                "color": "#9733EE",
-                "fields": [
-                    {
-                        #"title": title,
-                        "value": message,
-                        "short": "false",
-                    }
-                ]
-            }
-        ]
-    }
-    byte_length = str(sys.getsizeof(slack_data))
-    headers = {'Content-Type': "application/json", 'Content-Length': byte_length}
-    response = requests.post(url, data=json.dumps(slack_data), headers=headers)
-    if response.status_code != 200:
-        raise Exception(response.status_code, response.text)
+fPath   = r"C:\Users\Williamson_Lab\slackContactFile.txt"
+mssg    = ("Experiment " + experimentName + " ran successfully")
+iconURL = "https://raw.githubusercontent.com/MouseLand/suite2p/main/suite2p/logo/logo_unshaded.png"
+from sendSlackMssg import sendMssg
+sendMssg(fPath,mssg,iconURL)
