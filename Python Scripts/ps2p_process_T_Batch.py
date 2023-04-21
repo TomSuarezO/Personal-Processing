@@ -6,15 +6,11 @@ Created on Thu Jun 24 11:46:14 2021
 
 # User-input parameters
 # Place each experiment ID and the server folder for each of them
-expID = [r"WT319\032723",
-         r"WT319\032823",
-         r"WT319\032923",
-         r"WT319\033023"
+expID = [r"WT322\041423",
+         r"WT322\041523",
         ]
 rawDataServer = [r"W:\Data\Mask_ND\Nonspecific\2P",
                  r"W:\Data\Mask_ND\Nonspecific\2P",
-                 r"W:\Data\Mask_ND\Nonspecific\2P",
-                 r"W:\Data\Mask_ND\Nonspecific\2P"
                 ]
 saveServer = r"W:\Data\Mask_ND\Nonspecific\2P" # path where new folder will be created
 numberOfplanes = 1
