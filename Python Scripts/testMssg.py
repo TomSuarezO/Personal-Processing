@@ -6,7 +6,7 @@ iconURL = "https://raw.githubusercontent.com/MouseLand/suite2p/main/suite2p/logo
 
 import requests
 import json
-webhook_url = 'https://hooks.slack.com/services/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'
+webhook_url = ''
 data = { 'name': 'This is an example for webhook' }
 requests.post(webhook_url, data=json.dumps(data), headers={'Content-Type': 'application/json'})
 

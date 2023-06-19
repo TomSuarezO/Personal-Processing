@@ -6,11 +6,11 @@ Created on Thu Jun 24 11:46:14 2021
 
 # User-input parameters
 #mouseID = r"WT108"
-#expDate = r"033022"
-experimentName = r"WT322\041323"
+#expDate = r"033022"  
+experimentName = r"Tlx199\052523"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\Mask_ND\Nonspecific\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\Mask_ND\Nonspecific\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\Mask_ND\IT_ET\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\Mask_ND\IT_ET\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
@@ -41,7 +41,7 @@ if use_custom_ops:
     ops["fs"]               = 30
     ops["nplanes"]          = 1
     ops["move_bin"]         = 1
-    ops["nchannels"]        = 1
+    ops["nchannels"]        = 2
     ops["do_registration"]  = 1
     ops["save_folder"]      = save_path
     ops['input_format']     = 'tif'
