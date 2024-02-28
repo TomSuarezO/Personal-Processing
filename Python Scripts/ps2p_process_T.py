@@ -7,10 +7,10 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"  
-experimentName = r"PV022\082023"
+experimentName = r"WT499\020724"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\Mask_ND\PV\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\Mask_ND\PV\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\Mask_ND\Nonspecific\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\Mask_ND\Nonspecific\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
@@ -37,12 +37,15 @@ from suite2p import run_s2p, default_ops
 if use_custom_ops:
     ops0    = np.load(opsFile , allow_pickle=True)
     ops     = ops0.tolist()
-    ops["tau"]              = 1.00
+    ops["tau"]              = 0.7
     ops["fs"]               = 30
     ops["nplanes"]          = 1
     ops["move_bin"]         = 1
-    ops["nchannels"]        = 2
+    ops["nchannels"]        = 1
     ops["do_registration"]  = 1
+    ops["anatomical_only"]  = 0
+    ops["diameter"]         = 12
+    ops["threshold_scaling"] = 1.2
     ops["save_folder"]      = save_path
     ops['input_format']     = 'tif'
     print('Custom Ops Loaded')
@@ -56,7 +59,7 @@ else:
 db = {
       'look_one_level_down': True, # whether to look in ALL subfolders when searching for tiffs
       'data_path': [data_path], # a list of folders with tiffs
-      'fast_disk': r"C:\Users\Williamson_Lab\Documents\Tommy\Ps2p Fast Disk"
+      'fast_disk': r"D:\S2P Fast Disk"
       #'tiff_list': ['suite2p_1_ctetSLC077_NC_210510_2P_plane1_1.tif']
     }
 
@@ -80,6 +83,8 @@ maxY = round(newOps['Ly']*newOps['maxregshift'])
 titlestr = 'Max Allowed X Shift = '+str(maxX) +'  |  '+'Max Allowed Y Shift = '+str(maxY)
 plt.title(titlestr)
 plt.savefig(save_path + '\\' + 'MotionDiagnosis')
+
+
 
 
 # Send Slack message upon completion

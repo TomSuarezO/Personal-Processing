@@ -6,11 +6,11 @@ Created on Thu Jun 24 11:46:14 2021
 
 # User-input parameters
 # Place each experiment ID and the server folder for each of them
-expID = [r"WT322\041423",
-         r"WT322\041523",
+expID = [r"Tlx193\010924",
+         r"Tlx194\010924",
         ]
-rawDataServer = [r"W:\Data\Mask_ND\Nonspecific\2P",
-                 r"W:\Data\Mask_ND\Nonspecific\2P",
+rawDataServer = [r"W:\Data\Mask_ND\IT\2P",
+                 r"W:\Data\Mask_ND\IT\2P",
                 ]
 saveServer = r"W:\Data\Mask_ND\Nonspecific\2P" # path where new folder will be created
 numberOfplanes = 1
@@ -78,6 +78,7 @@ for ii in range(len(expID)):
     plt.savefig(save_path + '\\MotionDiagnosis.png')
 
 
+
     # Send Slack for each iteration
     fPath   = r"C:\Users\Williamson_Lab\slackContactFile.txt"
     mssg    = ("Experiment " + expID[ii] + " ran successfully | " + str(ii+1) + " of " + str(len(expID)))
@@ -87,7 +88,7 @@ for ii in range(len(expID)):
 
 
 
-# Send Slack for each iteration
+# Send Slack for whole experiment
 fPath   = r"C:\Users\Williamson_Lab\slackContactFile.txt"
 mssg    = ("Batch experiment ran successfully")
 iconURL = "https://raw.githubusercontent.com/MouseLand/suite2p/main/suite2p/logo/logo_unshaded.png"
