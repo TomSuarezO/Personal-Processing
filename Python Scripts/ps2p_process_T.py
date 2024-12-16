@@ -7,10 +7,10 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"  
-experimentName = r"WT556\051724"
+experimentName = r"Tlx414\120724"
 #experimentName = mouseID + "\\" expDate
-rawDataServer = r"W:\Data\Mask_ND\SLM\2P" # server path for raw data - just before session ID folder
-saveServer = r"W:\Data\Mask_ND\SLM\2P" # path where new folder will be created
+rawDataServer = r"W:\Data\Mask_ND\IT\2P" # server path for raw data - just before session ID folder
+saveServer = r"W:\Data\Mask_ND\IT\2P" # path where new folder will be created
 print('\nExperiment ID: ' + experimentName + '\nSaved in server:' + saveServer + '\n')
 
 use_custom_ops = True # Logical for default or custom options - Use True for options from file on next line
@@ -37,7 +37,7 @@ from suite2p import run_s2p, default_ops
 if use_custom_ops:
     ops0    = np.load(opsFile , allow_pickle=True)
     ops     = ops0.tolist()
-    ops["tau"]              = 1
+    ops["tau"]              = 0.7
     ops["fs"]               = 30
     ops["nplanes"]          = 1
     ops["move_bin"]         = 1
