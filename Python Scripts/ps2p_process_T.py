@@ -7,7 +7,7 @@ Created on Thu Jun 24 11:46:14 2021
 # User-input parameters
 #mouseID = r"WT108"
 #expDate = r"033022"  
-experimentName = r"Tlx414\120724"
+experimentName = r"Tlx480\042825"
 #experimentName = mouseID + "\\" expDate
 rawDataServer = r"W:\Data\Mask_ND\IT\2P" # server path for raw data - just before session ID folder
 saveServer = r"W:\Data\Mask_ND\IT\2P" # path where new folder will be created
