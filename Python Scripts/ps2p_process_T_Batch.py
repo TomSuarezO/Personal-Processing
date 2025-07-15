@@ -6,11 +6,13 @@ Created on Thu Jun 24 11:46:14 2021
 
 # User-input parameters
 # Place each experiment ID and the server folder for each of them
-expID = [r"Tlx193\010924",
-         r"Tlx194\010924",
+expID = [r"TA784\070525",
+         r"Emx077\070525",
+         r"Emx079\070525"
         ]
-rawDataServer = [r"W:\Data\Mask_ND\IT\2P",
-                 r"W:\Data\Mask_ND\IT\2P",
+rawDataServer = [r"W:\Data\Mask_ND\TA\2P",
+                 r"W:\Data\Mask_ND\Nonspecific\2P",
+                 r"W:\Data\Mask_ND\Nonspecific\2P"
                 ]
 saveServer = r"W:\Data\Mask_ND\Nonspecific\2P" # path where new folder will be created
 numberOfplanes = 1
@@ -32,13 +34,15 @@ from suite2p import run_s2p, default_ops
 if use_custom_ops:
     ops0    = np.load(opsFile , allow_pickle=True)
     ops     = ops0.tolist()
-    ops["tau"]              = 1.00
+    ops["tau"]              = 0.7
     ops["fs"]               = 30
     ops["nplanes"]          = 1
     ops["move_bin"]         = 1
     ops["nchannels"]        = 1
-    ops["allow_overlap"]    = True
     ops["do_registration"]  = 1
+    ops["anatomical_only"]  = 0
+    ops["diameter"]         = 12
+    ops["threshold_scaling"] = 0.8
     ops['input_format']     = 'tif'
     print('Custom Ops Loaded')
 else:
@@ -49,7 +53,7 @@ else:
 # Iterate through Database
 for ii in range(len(expID)):
     data_path = rawDataServer[ii] + '\\' + expID[ii]
-    save_path = saveServer + '\\' + expID[ii] + r"_procPS2P"
+    save_path = rawDataServer[ii] + '\\' + expID[ii] + r"_procPS2P"
     ops["save_folder"] = save_path # Save custom savepath for each session in the batch
     db = {
           'look_one_level_down': True, # whether to look in ALL subfolders when searching for tiffs
